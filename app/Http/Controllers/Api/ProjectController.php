@@ -19,21 +19,22 @@ class ProjectController extends Controller
     }
 
     public function show($slug) {
-        $project = Poject::where('slug', '=', $slug)->with('technologies', 'type')->first();
+        $project = Project::where('slug', '=', $slug)->with('technologies', 'type')->first();
 
+        $apiData = [];
         if($project) {
-            $data = [
+            $apiData = [
                 'success' => true,
                 'project' => $project
-            ];    
-        } else {
-            $data = [
-                'success' => false,
-                'error' => 'No project found with this slug' 
             ];
-    
+        } else {
+            $apiData = [
+                'success' => false,
+                'error' => 'no project found with this slug'
+            ];
         }
-        return response()->json($data);
+
+        return response()->json($apiData);
 
     }
 }

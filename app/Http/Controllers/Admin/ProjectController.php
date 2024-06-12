@@ -132,13 +132,13 @@ class ProjectController extends Controller
             $img_path = Storage::disk('public')->put('project_images', $formData['cover_image']);
             $formData['cover_image'] = $img_path;
         }
-        $project->slug = Str::slug($formData['name'], '-');
+        $formData['slug'] = Str::slug($formData['name'], '-');
         $project->update($formData);
 
         if($request->has('technologies')) {
             $project->technologies()->sync($formData['technologies']);
         } else {
-            $project->technologies()->detach();
+            $project->technologies()->sync([]);
         }
 
         return redirect()->route('admin.projects.show', ['project' => $project->slug]);
