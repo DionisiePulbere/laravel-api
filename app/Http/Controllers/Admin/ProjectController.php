@@ -70,7 +70,7 @@ class ProjectController extends Controller
             $newProject->technologies()->attach($formData['technologies']);
         }
 
-       return redirect()->route('admin.projects.show', ['project' => $newProject->id]);
+       return redirect()->route('admin.projects.show', ['project' => $newProject->slug]);
     }
 
     /**
@@ -141,7 +141,7 @@ class ProjectController extends Controller
             $project->technologies()->detach();
         }
 
-        return redirect()->route('admin.projects.show', ['project' => $project->id]);
+        return redirect()->route('admin.projects.show', ['project' => $project->slug]);
     }
 
     /**
